@@ -11,8 +11,7 @@ class AddRoom(View):
 
     def post(self, request):
         name = request.POST.get("room-name")
-        capacity = request.POST.get("capacity")
-        capacity = int(capacity) if capacity else 0
+        capacity = int(request.POST.get("capacity"))
         projector = request.POST.get("projector") == "on"
 
         if not name:
@@ -53,8 +52,7 @@ class ModifyRoom(View):
     def post(self, request, room_id):
         room = Room.objects.get(id=room_id)
         name = request.POST.get("room-name")
-        capacity = request.POST.get("capacity")
-        capacity = int(capacity) if capacity else 0
+        capacity = int(request.POST.get("capacity"))
         projector = request.POST.get("projector") == "on"
 
         if not name:
@@ -113,8 +111,7 @@ class RoomDetails(View):
 class Search(View):
     def get(self, request):
         name = request.GET.get("room-name")
-        capacity = request.GET.get("capacity")
-        capacity = int(capacity) if capacity else 0
+        capacity = int(request.POST.get("capacity"))
         projector = request.GET.get("projector") == "on"
 
         rooms = Room.objects.all()
