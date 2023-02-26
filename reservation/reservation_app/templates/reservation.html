@@ -38,22 +38,21 @@
 <!-- Form -->
 <div class="card">
   <div class="card-body">
+    <h2>Room name: {{ room.name }}</h2>
     <form action="" method="POST">
       {% csrf_token %}
       <div class="form-group">
-        <label for="room-name">Room name</label>
-        <input type="text" class="form-control" id="room-name" aria-describedby="room-name-help" placeholder="Room name" name="room-name" value="{{ room.name }}">
-        <small id="room-name-help" class="form-text text-muted">Room name must be unique.</small>
+        <label for="reservation-date">Booking date</label>
+        <input type="date" id="reservation-date" name="reservation-date" max="3000-12-31"
+               min="1000-01-01" class="form-control">
       </div>
+
       <div class="form-group">
-        <label for="capacity">Room capacity</label>
-        <input type="number" step="1" class="form-control" id="capacity" placeholder="10" name="capacity" value="{{ room.capacity }}">
+        <label for="comment">Comment</label>
+        <textarea class="form-control" id="comment" name="comment"></textarea>
       </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="projector" id="projector" {% if room.projector_availability %} checked {% endif %}>
-        <label class="form-check-label" for="projector">Projector availability</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Edit</button>
+
+      <button type="submit" class="btn btn-primary">Book</button>
     </form>
   </div>
 </div>
@@ -69,6 +68,22 @@
 </div>
 <!-- Form error -->
 {% endif %}
+
+<!-- All bookings -->
+<div class="card">
+  <div class="card-body">
+    <h3>Bookings</h3>
+    <ul class="list-group">
+      {% for reservation in reservations %}
+      <li class="list-group-item">
+        <h4>{{ reservation.date }}</h4>
+        <p>{{ reservation.comment }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<!-- All bookings -->
 
 <!-- Footer -->
 <footer class="footer">

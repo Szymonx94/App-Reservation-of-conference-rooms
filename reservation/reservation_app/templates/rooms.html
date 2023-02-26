@@ -28,47 +28,83 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/">List of all rooms<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" href="/">List of all rooms<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/room/new/">Add a room</a>
     </div>
   </div>
 </nav>
 <!-- Nav -->
 
+<!-- table -->
+<table class="table">
+  <thead>
+    <tr class="d-flex">
+      <th scope="col" class="col-1">#</th>
+      <th scope="col" class="col-2">Name</th>
+      <th scope="col" class="col-1">Capacity</th>
+      <th scope="col" class="col-2">Availability</th>
+      <th scope="col" class="col-5" colspan="4">Projector availability</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for room in rooms %}
+    <tr class="d-flex">
+      <th scope="row" class="col-1">{{ room.id }}</th>
+      <td class="col-2">
+        <a href="/room/{{ room.id }}/">{{ room.name }}</a>
+      </td>
+      <td class="col-1">{{ room.capacity }}</td>
+      {% if room.reserved %}
+        <td class="col-2" style="color:red;">Booked</td>
+      {% else %}
+        <td class="col-2" style="color:green;">Available</td>
+      {% endif %}
+      {% if room.projector_availability %}
+        <td class="col-2" style="color:green;">&#9745;</td>
+      {% else %}
+        <td class="col-2" style="color:red;">&#9746;</td>
+      {% endif %}
+      <td class="col-1">
+        <a href="/room/modify/{{ room.id }}/">edit</a>
+      </td>
+      <td class="col-1">
+        <a href="/room/delete/{{ room.id }}/">delete</a>
+      </td>
+      <td class="col-1">
+        <a href="/room/reserve/{{ room.id }}/">book</a>
+      </td>
+    </tr>
+    {% empty %}
+      <tr><td colspan="6">No rooms available</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- table -->
+<br>
 <!-- Form -->
+<h3>Search</h3>
 <div class="card">
   <div class="card-body">
-    <form action="" method="POST">
+    <form action="/search" method="GET">
       {% csrf_token %}
       <div class="form-group">
         <label for="room-name">Room name</label>
-        <input type="text" class="form-control" id="room-name" aria-describedby="room-name-help" placeholder="Room name" name="room-name" value="{{ room.name }}">
-        <small id="room-name-help" class="form-text text-muted">Room name must be unique.</small>
+        <input type="text" class="form-control" id="room-name" aria-describedby="room-name-help" placeholder="Room name" name="room-name">
       </div>
       <div class="form-group">
-        <label for="capacity">Room capacity</label>
-        <input type="number" step="1" class="form-control" id="capacity" placeholder="10" name="capacity" value="{{ room.capacity }}">
+        <label for="capacity">Minimum room capacity</label>
+        <input type="number" step="1" class="form-control" id="capacity" placeholder="10" name="capacity">
       </div>
+
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="projector" id="projector" {% if room.projector_availability %} checked {% endif %}>
+        <input type="checkbox" class="form-check-input" name="projector" id="projector">
         <label class="form-check-label" for="projector">Projector availability</label>
       </div>
-      <button type="submit" class="btn btn-primary">Edit</button>
+      <button type="submit" class="btn btn-primary">Search</button>
     </form>
   </div>
 </div>
 <!-- Form -->
-
-{% if error %}
-<!-- Form error -->
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{error}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<!-- Form error -->
-{% endif %}
 
 <!-- Footer -->
 <footer class="footer">

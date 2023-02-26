@@ -8,6 +8,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   <style>
     .footer {
       position: absolute;
@@ -17,47 +18,56 @@
       line-height: 60px; /* Vertically center the text there */
       background-color: #f5f5f5;
     }
+
   </style>
 </head>
+
 <body>
+
 <!-- Nav -->
+
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Conference room booking system</a>
+  <a class="navbar-brand" href="#">System rezerwacji sal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/">List of all rooms<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/room/new/">Add a room</a>
+      <a class="nav-item nav-link" href="/">Lista wszystkich sal<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/room/new/">Dodaj salę</a>
     </div>
   </div>
 </nav>
-<!-- Nav -->
 
+<!-- Nav -->
 <!-- Form -->
+
 <div class="card">
   <div class="card-body">
     <form action="" method="POST">
       {% csrf_token %}
+
       <div class="form-group">
-        <label for="room-name">Room name</label>
-        <input type="text" class="form-control" id="room-name" aria-describedby="room-name-help" placeholder="Room name" name="room-name" value="{{ room.name }}">
-        <small id="room-name-help" class="form-text text-muted">Room name must be unique.</small>
+        <label for="room-name">Nazwa sali</label>
+        <input type="text" class="form-control" id="room-name" aria-describedby="room-name-help" placeholder="Nazwa sali" name="room-name" value="{{ room.name }}">
+        <small id="room-name-help" class="form-text text-muted">Nazwa sali musi być unikatowa.</small>
       </div>
       <div class="form-group">
-        <label for="capacity">Room capacity</label>
+        <label for="capacity">Pojemność sali</label>
         <input type="number" step="1" class="form-control" id="capacity" placeholder="10" name="capacity" value="{{ room.capacity }}">
       </div>
       <div class="form-check">
         <input type="checkbox" class="form-check-input" name="projector" id="projector" {% if room.projector_availability %} checked {% endif %}>
-        <label class="form-check-label" for="projector">Projector availability</label>
+        <label class="form-check-label" for="projector">Dostępność rzutnika</label>
       </div>
-      <button type="submit" class="btn btn-primary">Edit</button>
+      <button type="submit" class="btn btn-primary">Edytuj</button>
+
     </form>
   </div>
 </div>
+
 <!-- Form -->
+
 
 {% if error %}
 <!-- Form error -->
@@ -67,9 +77,9 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+
 <!-- Form error -->
 {% endif %}
-
 <!-- Footer -->
 <footer class="footer">
       <div class="container">
@@ -78,4 +88,5 @@
     </footer>
 <!-- Footer -->
 </body>
+
 </html>
