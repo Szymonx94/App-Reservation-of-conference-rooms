@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>List of Available Rooms</h1>
+    <h6><a href="http://127.0.0.1:8000">HOME</a></h6>
+    <h6><a href="http://127.0.0.1:8000/">Rooms List</a></h6>
+    <h6><a href="http://127.0.0.1:8000/room/new">Create New Room</a></h6>
+
+    <h2>{{message}}</h2>
+
+    <ol>
+        {% for room in rooms %}
+            <li>
+                <h3><a href="http://127.0.0.1:8000/">{{room.1}}</a></h3>
+                <ul>
+                    <li>Room Capacity: {{room.2}}</li>
+                    <li>
+                        {% if room.3 %}
+                            Projector is AVAILABLE
+                        {% else %}
+                            Projector is UNAVAILABLE
+                        {% endif %}
+                    </li>
+                    <li>
+                        <button onclick="location.href='http://127.0.0.1:8000/room/modify/{{room.0}}'">Edit</button>
+                        <button onclick="location.href='http://127.0.0.1:8000/room/delete/{{room.0}}'">Delete</button>
+                        <button onclick="location.href='http://127.0.0.1:8000/room/reserve/{{room.0}}'">Reserve</button>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>

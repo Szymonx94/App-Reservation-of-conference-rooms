@@ -22,16 +22,16 @@ from reservation_app.views import (
     ModifyRoom,
     Reservation,
     RoomDetails,
-    Search
+    Search,
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('room/new/', AddRoom.as_view(), name="add-room"),
-    path('', RoomList.as_view(), name="room-list"),
-    path('room/delete/<int:room_id>/', DeleteRoom.as_view(), name="delete-room"),
-    path('room/modify/<int:room_id>/', ModifyRoom.as_view(), name="modify-room"),
-    path('room/reserve/<int:room_id>/', Reservation.as_view(), name="reserve-room"),
-    path('room/<int:room_id>/', RoomDetails.as_view(), name="room"),
-    path('search/', Search.as_view(), name="room-list"),
+    path("admin/", admin.site.urls),
+    path("room/new/", AddRoom.as_view(), name="add-room"),
+    path("", RoomList.as_view(), name="room-list"),
+    path("room/delete/<int:room_id>/", DeleteRoom.as_view(), name="delete-room"),
+    path("room/modify/<int:room_id>/", ModifyRoom.as_view(), name="modify-room"),
+    path("room/reserve/<int:room_id>/", Reservation.as_view(), name="reserve-room"),
+    path("room/<int:room_id>/", RoomDetails.as_view(), name="room"),
+    path("search/", Search.as_view(), name="room-list"),
 ]
